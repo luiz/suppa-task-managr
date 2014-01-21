@@ -1,0 +1,3 @@
+<form method=post action=@{NewTaskR} enctype=#{formEnctype}>
+    ^{formWidget}
+    <button type=submit class="btn btn-primary">Save

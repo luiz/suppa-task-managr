@@ -1,0 +1,19 @@
+<h1>Tasks
+$if null tasks
+    <p>No tasks yet
+$else
+    <p>Your tasks
+    <table .table>
+        <thead>
+            <tr>
+                <th>Task
+                <th>Due to
+                <th>Options
+        <tbody>
+            $forall Entity taskId task <- tasks
+                <tr>
+                    <td>#{taskDescription task}
+                    <td>#{show $ taskDueTo task}
+                    <td>
+                        <a .btn.btn-default href=@{TaskR taskId}>show
+<a href=@{NewTaskR} .btn.btn-primary>Create a new task

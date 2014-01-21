@@ -1,0 +1,7 @@
+<h1>Task
+<dl>
+    <dt>What?
+    <dd>#{taskDescription task}
+
+    <dt>Until when?
+    <dd>#{show $ taskDueTo task}
