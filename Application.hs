@@ -32,6 +32,7 @@ import Handler.Task
 -- BEGIN Heroku code
 import Data.HashMap.Strict as H
 import Data.Aeson.Types as AT
+import Data.List as M
 #ifndef DEVELOPMENT
 import qualified Web.Heroku
 #endif
@@ -42,11 +43,11 @@ canonicalizeKey ("dbname", val) = ("database", val)
 canonicalizeKey pair = pair
 
 toMapping :: [(Text, Text)] -> AT.Value
-toMapping xs = AT.Object $ M.fromList $ map (\(key, val) -> (key, AT.String val)) xs
+toMapping xs = AT.Object $ H.fromList $ M.map (\(key, val) -> (key, AT.String val)) xs
 #endif
 
 combineMappings :: AT.Value -> AT.Value -> AT.Value
-combineMappings (AT.Object m1) (AT.Object m2) = AT.Object $ m1 `M.union` m2
+combineMappings (AT.Object m1) (AT.Object m2) = AT.Object $ m1 `H.union` m2
 combineMappings _ _ = error "Data.Object is not a Mapping."
 
 loadHerokuConfig :: IO AT.Value
@@ -54,7 +55,7 @@ loadHerokuConfig = do
 #ifdef DEVELOPMENT
     return $ AT.Object M.empty
 #else
-    Web.Heroku.dbConnParams >>= return . toMapping . map canonicalizeKey
+    Web.Heroku.dbConnParams >>= return . toMapping . M.map canonicalizeKey
 #endif
 -- END Heroku code
 
