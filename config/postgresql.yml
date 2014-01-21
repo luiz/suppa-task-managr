@@ -1,0 +1,24 @@
+Default: &defaults
+  user: pgsql
+  password: pgsql
+  host: localhost
+  port: 5432
+  database: almoco_tecnico
+  poolsize: 10
+
+Development:
+  <<: *defaults
+
+Testing:
+  database: almoco_tecnico_test
+  <<: *defaults
+
+Staging:
+  database: almoco_tecnico_staging
+  poolsize: 100
+  <<: *defaults
+
+Production:
+  database: almoco_tecnico_production
+  poolsize: 100
+  <<: *defaults

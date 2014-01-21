@@ -53,7 +53,7 @@ combineMappings _ _ = error "Data.Object is not a Mapping."
 loadHerokuConfig :: IO AT.Value
 loadHerokuConfig = do
 #ifdef DEVELOPMENT
-    return $ AT.Object M.empty
+    return $ AT.Object H.empty
 #else
     Web.Heroku.dbConnParams >>= return . toMapping . M.map canonicalizeKey
 #endif
@@ -92,7 +92,7 @@ makeFoundation conf = do
     manager <- newManager conduitManagerSettings
     s <- staticSite
     hconfig <- loadHerokuConfig
-    dbconf <- withYamlEnvironment "config/sqlite.yml" (appEnv conf)
+    dbconf <- withYamlEnvironment "config/postgresql.yml" (appEnv conf)
               (Database.Persist.loadConfig . combineMappings hconfig) >>=
               Database.Persist.applyEnv
     p <- Database.Persist.createPoolConfig (dbconf :: Settings.PersistConf)
