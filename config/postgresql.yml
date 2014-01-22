@@ -17,11 +17,3 @@ Staging:
   database: almoco_tecnico_staging
   poolsize: 100
   <<: *defaults
-
-Production:
-  user: owuhuawipebafu
-  password: xo4BV-I5fi17MMDyWIw-oGawaI
-  host: ec2-54-197-241-82.compute-1.amazonaws.com
-  port: 5432
-  database: dehuopre1f5k9g
-  poolsize: 100
